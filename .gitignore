@@ -1,0 +1,11 @@
+# Local preview helpers (not part of the website)
+.dev-server.ps1
+preview.cmd
+
+# Server-only secrets (created on the host, never committed)
+config.php
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
