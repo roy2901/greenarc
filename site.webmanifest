@@ -2,12 +2,12 @@
   "name": "GreenArc Solutions",
   "short_name": "GreenArc",
   "description": "Full-service bookkeeping and accounting for small and mid-sized businesses.",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#123c26",
   "icons": [
-    { "src": "/assets/img/favicon-64.png", "sizes": "64x64", "type": "image/png" },
-    { "src": "/assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+    { "src": "assets/img/favicon-64.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
   ]
 }
