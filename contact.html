@@ -18,7 +18,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/styles.css?v=3">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What do you need from me to get started?","acceptedAnswer":{"@type":"Answer","text":"Read-only access to your accounting file (such as QuickBooks Online or Xero) and your recent bank and credit card statements. From there we assess where the books stand and propose a plan."}},
+    {"@type":"Question","name":"How does pricing work?","acceptedAnswer":{"@type":"Answer","text":"Pricing depends on transaction volume, the number of accounts, and the services you need. After a short review of your books we provide a clear monthly quote before any work begins."}},
+    {"@type":"Question","name":"Which accounting software do you support?","acceptedAnswer":{"@type":"Answer","text":"QuickBooks Online is our primary platform, and we also work with Xero, Sage Intacct, and the payment, inventory, and reporting tools listed on our Technology page."}},
+    {"@type":"Question","name":"How do we share documents securely?","acceptedAnswer":{"@type":"Answer","text":"Through secure shared folders, direct bank feeds, and receipt capture tools such as Dext or HubDoc. We never ask for your banking passwords."}},
+    {"@type":"Question","name":"When will I receive my monthly reports?","acceptedAnswer":{"@type":"Answer","text":"On a timeline we agree together during onboarding. Each month you receive your Profit and Loss, Balance Sheet, and any client-specific reports once every account is reconciled and reviewed."}},
+    {"@type":"Question","name":"Do you replace my CPA or tax preparer?","acceptedAnswer":{"@type":"Answer","text":"No. We keep your books clean, reconciled, and ready so your CPA can file faster. We are happy to work alongside your existing tax professional."}}
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -60,6 +74,20 @@
     <div class="eyebrow">Get in touch</div>
     <h1 class="display">Talk to us about your monthly close</h1>
     <p>Whether you're behind on the books, switching providers, or setting up QuickBooks for the first time, we'll map out exactly what your business needs.</p>
+  </div>
+</section>
+
+<section class="sec-pad" style="background:var(--wash);padding-bottom:72px">
+  <div class="wrap">
+    <div class="section-intro">
+      <div class="eyebrow">How we start</div>
+      <h2 class="h2 display">Three steps from hello to a clean close</h2>
+    </div>
+    <div class="steps steps-light">
+      <div class="step"><div class="dot">01</div><h4>Intro call</h4><p>A short conversation about your business, your books, and what you need. No obligation, no jargon.</p></div>
+      <div class="step"><div class="dot">02</div><h4>Review &amp; proposal</h4><p>We look at your accounting file and statements, then send a clear scope and monthly quote.</p></div>
+      <div class="step"><div class="dot">03</div><h4>Onboarding &amp; first close</h4><p>We set up access and workflows, bring the books current, and deliver your first monthly close.</p></div>
+    </div>
   </div>
 </section>
 
@@ -124,8 +152,45 @@
 
       <div class="form-status" role="status" aria-live="polite"></div>
 
+      <p class="form-note">We typically reply within one business day.</p>
+
       <p class="form-consent">By submitting, you agree to our <a href="privacy.html">Privacy Policy</a>. We'll only use your details to respond to your inquiry.</p>
     </form>
+  </div>
+</section>
+
+<section class="sec-pad" style="background:var(--wash)" id="faq">
+  <div class="wrap">
+    <div class="section-intro">
+      <div class="eyebrow">Common questions</div>
+      <h2 class="h2 display">Frequently asked questions</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>What do you need from me to get started?</summary>
+        <p>Read-only access to your accounting file (such as QuickBooks Online or Xero) and your recent bank and credit card statements. From there we assess where the books stand and propose a plan.</p>
+      </details>
+      <details>
+        <summary>How does pricing work?</summary>
+        <p>Pricing depends on transaction volume, the number of accounts, and the services you need. After a short review of your books we provide a clear monthly quote before any work begins.</p>
+      </details>
+      <details>
+        <summary>Which accounting software do you support?</summary>
+        <p>QuickBooks Online is our primary platform, and we also work with Xero, Sage Intacct, and the payment, inventory, and reporting tools listed on our <a href="technology.html">Technology page</a>.</p>
+      </details>
+      <details>
+        <summary>How do we share documents securely?</summary>
+        <p>Through secure shared folders, direct bank feeds, and receipt capture tools such as Dext or HubDoc. We never ask for your banking passwords.</p>
+      </details>
+      <details>
+        <summary>When will I receive my monthly reports?</summary>
+        <p>On a timeline we agree together during onboarding. Each month you receive your Profit and Loss, Balance Sheet, and any client-specific reports once every account is reconciled and reviewed.</p>
+      </details>
+      <details>
+        <summary>Do you replace my CPA or tax preparer?</summary>
+        <p>No. We keep your books clean, reconciled, and ready so your CPA can file faster. We are happy to work alongside your existing tax professional.</p>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -178,6 +243,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js?v=3" defer></script>
 </body>
 </html>
