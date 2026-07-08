@@ -79,8 +79,18 @@ So contact-form email (and your outbound mail) doesn't land in spam:
 
 ---
 
-## 7. Post-launch checklist
+## 7. Security (important)
 
+Work through **SECURITY.md** before go-live. It covers cPanel 2FA, ModSecurity, backups,
+mailbox password rotation, SPF/DKIM/DMARC, GitHub 2FA, and a post-deploy verification
+script (checking that config.php returns 403, the form rate-limits, etc.). The code-level
+protections are already in place; SECURITY.md covers the account and DNS side.
+
+---
+
+## 8. Post-launch checklist
+
+- [ ] Work through **SECURITY.md** (accounts, DNS, post-deploy checks)
 - [ ] Real logo, photos, favicon, and og-image in place (ASSETS.md)
 - [ ] Real testimonials swapped in (placeholder note removed)
 - [ ] Contact form test email received

@@ -65,6 +65,7 @@
   if (form) {
     var statusEl = form.querySelector(".form-status");
     var isStaticHost = /\.github\.io$/.test(location.hostname);
+    var loadStart = Date.now(); // for the anti-bot time-trap
 
     var setStatus = function (type, msg) {
       if (!statusEl) return;
@@ -114,6 +115,10 @@
         setStatus("bad", "Please complete the highlighted fields.");
         return;
       }
+
+      // stamp elapsed time since page load so the backend can drop instant bot posts
+      var tsField = form.querySelector('[name="ts"]');
+      if (tsField) tsField.value = String(Date.now() - loadStart);
 
       // On static preview hosts (GitHub Pages) PHP cannot run:
       // open a prefilled email instead of posting to contact.php.

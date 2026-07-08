@@ -21,13 +21,20 @@ DirectoryIndex index.html index.php
 # ---- Custom error page ------------------------------------
 ErrorDocument 404 /404.html
 
+# ---- Limit request body size (form is text only, 1 MB cap) -
+LimitRequestBody 1048576
+
 # ---- Protect sensitive files ------------------------------
-<FilesMatch "^(config\.php|config\.sample\.php|composer\.(json|lock)|\.htaccess)$">
+<FilesMatch "^(config\.php|config\.sample\.php|composer\.(json|lock)|\.htaccess|README-DEPLOY\.md|ASSETS\.md|SECURITY\.md)$">
   Require all denied
 </FilesMatch>
 
 # Block direct access to the PHPMailer library
 RedirectMatch 403 ^/lib/.*$
+
+# Block dotfiles and any accidentally uploaded VCS metadata (.git, .gitignore,
+# .nojekyll, .dev-server.ps1). Allow /.well-known for future SSL/ACME needs.
+RedirectMatch 404 ^/\.(?!well-known)
 
 # ---- Security headers -------------------------------------
 <IfModule mod_headers.c>
@@ -38,7 +45,7 @@ RedirectMatch 403 ^/lib/.*$
   # HSTS (enable only once HTTPS is confirmed working)
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   # Content Security Policy (allows Google Fonts + self-hosted assets)
-  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
 </IfModule>
 
 # ---- Compression ------------------------------------------

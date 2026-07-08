@@ -1,0 +1,6 @@
+# Defense in depth: never execute server-side scripts from the assets folder.
+# Even if a file were somehow written here, it would be served as plain text.
+<FilesMatch "\.(php|php3|php4|php5|php7|phtml|pl|py|cgi|sh|asp|aspx)$">
+  Require all denied
+</FilesMatch>
+Options -ExecCGI
