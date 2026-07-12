@@ -16,6 +16,7 @@ use PHPMailer\PHPMailer\Exception;
 require __DIR__ . '/lib/PHPMailer/Exception.php';
 require __DIR__ . '/lib/PHPMailer/PHPMailer.php';
 require __DIR__ . '/lib/PHPMailer/SMTP.php';
+require __DIR__ . '/lib/db.php';
 
 // ---- response hardening ----------------------------------------------------
 ini_set('display_errors', '0');
@@ -150,6 +151,18 @@ if (!file_exists($cfgPath)) {
     respond(false, 'The contact form is not configured yet. Please email finance@greenarc.solutions.', $isAjax, 500);
 }
 $cfg = require $cfgPath;
+
+// ---- store the lead (best-effort; a DB outage never blocks the email) ----------
+$pdo = greenarc_db($cfg);
+greenarc_store_lead($pdo, [
+    'name'       => $name,
+    'email'      => $email,
+    'company'    => $company,
+    'message'    => $message,
+    'source'     => 'website',
+    'ip_hash'    => $ip !== '' ? hash('sha256', 'ga-ip|' . $ip) : null,
+    'user_agent' => isset($_SERVER['HTTP_USER_AGENT']) ? mb_substr((string) $_SERVER['HTTP_USER_AGENT'], 0, 255) : null,
+]);
 
 // ---- build + send --------------------------------------------------------------
 $mail = new PHPMailer(true);

@@ -29,8 +29,12 @@ LimitRequestBody 1048576
   Require all denied
 </FilesMatch>
 
-# Block direct access to the PHPMailer library
+# Block direct access to server-side libraries and the SQL schema
 RedirectMatch 403 ^/lib/.*$
+RedirectMatch 403 ^/db/.*$
+<FilesMatch "\.sql$">
+  Require all denied
+</FilesMatch>
 
 # Block dotfiles and any accidentally uploaded VCS metadata (.git, .gitignore,
 # .nojekyll, .dev-server.ps1). Allow /.well-known for future SSL/ACME needs.

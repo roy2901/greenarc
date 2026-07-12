@@ -1,0 +1,12 @@
+# GreenArc admin area
+Options -Indexes
+
+# The shared bootstrap is an include, never a page. Block direct HTTP access.
+<Files "auth.php">
+  Require all denied
+</Files>
+
+# Discourage indexing at the server level too (belt and suspenders with meta robots)
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>

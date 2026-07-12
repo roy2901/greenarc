@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /lib/
+Disallow: /db/
+Disallow: /admin/
 Disallow: /config.php
 
 Sitemap: https://greenarc.solutions/sitemap.xml
