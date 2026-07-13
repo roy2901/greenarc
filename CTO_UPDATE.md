@@ -6,7 +6,7 @@
 - Marketing site for a bookkeeping firm (17 pages) plus a PHP/MySQL backend: contact form that stores leads and a password-protected admin dashboard.
 - **Frontend is production-quality and effectively live** on GitHub Pages. **Backend is feature-complete in code but has never run anywhere.**
 - **Biggest risk: hosting mismatch.** The live domain `greenarc.solutions` runs a **GoDaddy Website Builder** page (unrelated, no-code) that **cannot execute our PHP or MySQL**. None of our code is deployed to the real domain.
-- No tests, no CI/CD, no PHP runtime used in dev. The backend is unverified: not lint-checked by an interpreter, never executed against a database.
+- CI added (PHP lint, CodeQL, link + content guards); still no unit tests and the backend has never executed against a database.
 - Secrets are handled correctly (nothing sensitive committed).
 
 ## What's built
