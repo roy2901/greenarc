@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint:
+    name: PHP lint (php -l)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+      - name: Lint all project PHP files
+        run: |
+          set -e
+          # Lint our code; skip the vendored PHPMailer library.
+          files=$(find . -name '*.php' -not -path './lib/PHPMailer/*')
+          echo "$files"
+          for f in $files; do
+            php -l "$f"
+          done
+
+  content-guard:
+    name: Content guard (no em-dashes)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if an em-dash appears in site content
+        run: |
+          set -e
+          if grep -rnP '\xE2\x80\x94' \
+               --include='*.html' --include='*.css' --include='*.js' --include='*.php' \
+               . ; then
+            echo "::error::Em-dash found in site content. Use commas, colons, or 'and' instead."
+            exit 1
+          fi
+          echo "No em-dashes in site content."
+
+  links:
+    name: Internal link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify internal .html links resolve
+        run: |
+          set -e
+          missing=0
+          for page in $(find . -maxdepth 1 -name '*.html'); do
+            # extract relative .html hrefs (strip anchors/query), ignore http/mailto/tel
+            for target in $(grep -oE 'href="[a-zA-Z0-9_./-]+\.html' "$page" | sed 's/href="//' | sort -u); do
+              base="${target%%#*}"
+              if [ ! -f "./$base" ]; then
+                echo "::error file=$page::broken link -> $base"
+                missing=1
+              fi
+            done
+          done
+          [ "$missing" -eq 0 ] && echo "All internal links resolve."

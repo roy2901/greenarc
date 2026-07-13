@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # Keep the GitHub Actions used in CI up to date.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+# Note: PHPMailer is vendored manually under lib/PHPMailer (no Composer),
+# so Dependabot cannot track it. It is pinned to 6.9.1; review quarterly per
+# SECURITY.md and update the folder by hand when a security release ships.
