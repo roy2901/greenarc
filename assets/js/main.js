@@ -64,7 +64,6 @@
   var form = document.getElementById("contactForm");
   if (form) {
     var statusEl = form.querySelector(".form-status");
-    var isStaticHost = /\.github\.io$/.test(location.hostname);
     var loadStart = Date.now(); // for the anti-bot time-trap
 
     var setStatus = function (type, msg) {
@@ -108,59 +107,18 @@
     });
 
     form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (statusEl) statusEl.className = "form-status";
-
+      // Validate on the client; if invalid, block submission and show errors.
       if (!validate()) {
+        e.preventDefault();
+        if (statusEl) statusEl.className = "form-status";
         setStatus("bad", "Please complete the highlighted fields.");
         return;
       }
-
-      // stamp elapsed time since page load so the backend can drop instant bot posts
+      // Stamp elapsed time (a simple bot signal), then let the form submit
+      // natively so the host (Netlify) captures it and redirects to the
+      // thank-you page. No preventDefault on the valid path.
       var tsField = form.querySelector('[name="ts"]');
       if (tsField) tsField.value = String(Date.now() - loadStart);
-
-      // On static preview hosts (GitHub Pages) PHP cannot run:
-      // open a prefilled email instead of posting to contact.php.
-      if (isStaticHost) {
-        var n = form.querySelector('[name="name"]').value.trim();
-        var em = form.querySelector('[name="email"]').value.trim();
-        var co = form.querySelector('[name="company"]').value.trim();
-        var msg = form.querySelector('[name="message"]').value.trim();
-        var body = "Name: " + n + "\nEmail: " + em + (co ? "\nCompany: " + co : "") + "\n\n" + msg;
-        location.href = "mailto:finance@greenarc.solutions?subject=" +
-          encodeURIComponent("Website inquiry from " + n) +
-          "&body=" + encodeURIComponent(body);
-        setStatus("ok", "Your email app should open with your message ready to send.");
-        return;
-      }
-
-      var btn = form.querySelector('button[type="submit"]');
-      var original = btn ? btn.innerHTML : "";
-      if (btn) { btn.disabled = true; btn.innerHTML = "Sending..."; }
-
-      var data = new FormData(form);
-
-      fetch(form.getAttribute("action") || "contact.php", {
-        method: "POST",
-        body: data,
-        headers: { "X-Requested-With": "XMLHttpRequest" }
-      })
-        .then(function (r) { return r.json().catch(function () { return { ok: r.ok }; }); })
-        .then(function (res) {
-          if (res && res.ok) {
-            form.reset();
-            setStatus("ok", (res.message) || "Thank you, your message has been sent. We'll be in touch shortly.");
-          } else {
-            setStatus("bad", (res && res.message) || "Something went wrong. Please email us directly at finance@greenarc.solutions.");
-          }
-        })
-        .catch(function () {
-          setStatus("bad", "Network error. Please email us directly at finance@greenarc.solutions.");
-        })
-        .finally(function () {
-          if (btn) { btn.disabled = false; btn.innerHTML = original; }
-        });
     });
   }
 
