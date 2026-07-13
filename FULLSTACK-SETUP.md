@@ -61,6 +61,22 @@ If you cannot use the Terminal, tell me the password and I will generate the has
 - Search across name/email/company/message, filter by status, change a lead's status inline,
   and Export CSV (respects the current search/filter).
 
+## Insights CMS (admin > Insights)
+The admin dashboard can create and edit Insights articles, stored in the `posts` table.
+- `admin/posts.php` lists posts; `admin/post-edit.php` creates/edits (title, slug, tag, excerpt,
+  body, draft/published). Body is plain text; leave a blank line between paragraphs.
+- Published posts render at `/post.php?slug=<slug>` using the site styling.
+- Body is stored as text and rendered escaped, so there is no HTML/script injection risk.
+- Follow-up (not done): the public Insights index (`insights.html`) and nav are still the static
+  articles. To surface CMS posts in the listing/nav, convert `insights.html` to a PHP page that
+  also loops `ga_posts_published()`. The single-post renderer already works today.
+
+## Tests and CI
+- `lib/validate.php` holds the pure contact-form logic (clean, validate, origin, rate window).
+- `tests/ContactValidationTest.php` covers it with PHPUnit.
+- GitHub Actions (`.github/workflows/ci.yml`) runs `php -l` on all PHP, PHPUnit, an em-dash guard,
+  and an internal-link check on every push. Run tests locally with `composer install && vendor/bin/phpunit`.
+
 ## Security built in
 - Passwords stored only as a bcrypt hash; verified with `password_verify`.
 - Sessions: HttpOnly, SameSite=Strict, Secure (when `https_only` is true), id regenerated on login.

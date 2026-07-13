@@ -16,3 +16,19 @@ CREATE TABLE IF NOT EXISTS `leads` (
   KEY `idx_status`  (`status`),
   KEY `idx_created` (`created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Insights CMS: articles managed from the admin dashboard.
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `slug`       VARCHAR(200) NOT NULL,
+  `title`      VARCHAR(200) NOT NULL,
+  `tag`        VARCHAR(60)  NULL,
+  `excerpt`    VARCHAR(300) NULL,
+  `body`       MEDIUMTEXT   NOT NULL,
+  `status`     ENUM('draft','published') NOT NULL DEFAULT 'draft',
+  `created_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_slug` (`slug`),
+  KEY `idx_pub` (`status`, `created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

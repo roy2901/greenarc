@@ -98,6 +98,8 @@ $badge = ['new' => 'b-new', 'read' => 'b-read', 'replied' => 'b-replied', 'archi
 <header class="adm-top">
   <div class="adm-brand">Green<b>Arc</b> <span>Admin</span></div>
   <nav class="adm-nav">
+    <a href="index.php">Leads</a>
+    <a href="posts.php">Insights</a>
     <a href="/" target="_blank" rel="noopener">View site</a>
     <a href="logout.php" class="danger">Log out</a>
   </nav>

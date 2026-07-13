@@ -30,6 +30,22 @@ jobs:
             php -l "$f"
           done
 
+  php-tests:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+          coverage: none
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+      - name: Run tests
+        run: vendor/bin/phpunit
+
   content-guard:
     name: Content guard (no em-dashes)
     runs-on: ubuntu-latest

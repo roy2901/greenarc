@@ -12,3 +12,7 @@ Thumbs.db
 
 # Throwaway admin CSS preview mock (not part of the app)
 admin/_preview.html
+
+# Composer / PHPUnit
+/vendor/
+composer.lock
