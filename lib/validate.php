@@ -7,10 +7,13 @@
 declare(strict_types=1);
 
 if (!function_exists('ga_clean')) {
-    /** Strip CR/LF (and their encoded forms) to prevent header injection. */
+    /** Strip CR/LF (and their encoded forms) to prevent header injection, then
+     *  collapse any run of whitespace to a single space. */
     function ga_clean(string $v): string
     {
-        return trim(str_replace(["\r", "\n", "%0a", "%0d", "%0A", "%0D"], ' ', $v));
+        $v = str_replace(["\r", "\n", "%0a", "%0d", "%0A", "%0D"], ' ', $v);
+        $v = preg_replace('/\s+/', ' ', $v) ?? $v;
+        return trim($v);
     }
 }
 
